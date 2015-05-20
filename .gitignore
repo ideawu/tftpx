@@ -1,0 +1,6 @@
+server
+client
+*.a
+*.o
+*.swp
+*.swo
