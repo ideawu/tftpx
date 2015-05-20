@@ -32,8 +32,7 @@ int send_packet(int sock, struct tftpx_packet *packet, int size){
 		if(send(sock, packet, size, 0) != size){
 			return -1;
 		}
-		for(time_wait_ack = 0; time_wait_ack < PKT_RCV_TIMEOUT; time_wait_ack += 20000){
-			usleep(20000);
+		for(time_wait_ack = 0; time_wait_ack < PKT_RCV_TIMEOUT; time_wait_ack += 10000){
 			// Try receive(Nonblock receive).
 			r_size = recv(sock, &rcv_packet, sizeof(struct tftpx_packet), MSG_DONTWAIT);
 			if(r_size >= 4 && rcv_packet.cmd == htons(CMD_ACK) && rcv_packet.block == packet->block){
@@ -41,6 +40,7 @@ int send_packet(int sock, struct tftpx_packet *packet, int size){
 				// Valid ACK
 				break;
 			}
+			usleep(10000);
 		}
 		if(time_wait_ack < PKT_RCV_TIMEOUT){
 			break;

@@ -146,7 +146,7 @@ void do_get(char *remote_file, char *local_file){
 	// Receive data.
 	snd_packet.cmd = htons(CMD_ACK);
 	do{
-		for(time_wait_data = 0; time_wait_data < PKT_RCV_TIMEOUT * PKT_MAX_RXMT; time_wait_data += 20000){
+		for(time_wait_data = 0; time_wait_data < PKT_RCV_TIMEOUT * PKT_MAX_RXMT; time_wait_data += 10000){
 			// Try receive(Nonblock receive).
 			r_size = recvfrom(sock, &rcv_packet, sizeof(struct tftpx_packet), MSG_DONTWAIT,
 					(struct sockaddr *)&sender,
@@ -162,7 +162,7 @@ void do_get(char *remote_file, char *local_file){
 				fwrite(rcv_packet.data, 1, r_size - 4, fp);
 				break;
 			}
-			usleep(20000);
+			usleep(10000);
 		}
 		if(time_wait_data >= PKT_RCV_TIMEOUT * PKT_MAX_RXMT){
 			printf("Wait for DATA #%d timeout.\n", block);
