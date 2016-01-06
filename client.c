@@ -36,16 +36,22 @@ int main(int argc, char **argv){
 	
 	int done = 0;	// Server exit.
 	char *server_ip;
+	unsigned short port = SERVER_PORT;
 
 	addr_len = sizeof(struct sockaddr_in);	
 	
 	if(argc < 2){
-		printf("Usage: %s server_ip\n", argv[0]);
+		printf("Usage: %s server_ip [server_port]\n", argv[0]);
+		printf("    server_port - default 10220\n");
 		return 0;
 	}
 	help();
 	
 	server_ip = argv[1];
+	if(argc > 2){
+		port = (unsigned short)atoi(argv[2]);
+	}
+	printf("Connect to server at %s:%d", server_ip, port);
 	
 	if((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0){
 		printf("Server socket could not be created.\n");
@@ -54,7 +60,7 @@ int main(int argc, char **argv){
 	
 	// Initialize server address
 	server.sin_family = AF_INET;
-	server.sin_port = htons(SERVER_PORT);
+	server.sin_port = htons(port);
 	inet_pton(AF_INET, server_ip, &(server.sin_addr.s_addr));
 	
 	// Command line interface.

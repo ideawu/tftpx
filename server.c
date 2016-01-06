@@ -18,7 +18,15 @@ int main (int argc, char **argv){
 	socklen_t addr_len;
 	pthread_t t_id;
 	struct sockaddr_in server;
-	
+	unsigned short port = SERVER_PORT;
+
+	printf("Usage: %s [port]\n", argv[0]);
+	printf("    port - default 10220\n");
+
+	if(argc > 1){
+		port = (unsigned short)atoi(argv[1]);
+	}
+
 	config();
 	
 	if((sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)) < 0){
@@ -28,14 +36,14 @@ int main (int argc, char **argv){
 	
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons(SERVER_PORT);
+	server.sin_port = htons(port);
 
 	if (bind(sock, (struct sockaddr *) &server, sizeof(server)) < 0){
 		printf("Server bind failed. Server already running? Proper permissions?\n");
 		return 2;
 	}
 	
-	printf("Server started.\n");
+	printf("Server started at 0.0.0.0:%d.\n", port);
 	
 	struct tftpx_request *request;
 	addr_len = sizeof(struct sockaddr_in);
