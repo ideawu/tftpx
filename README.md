@@ -2,7 +2,7 @@
 
 这个项目是我在大学学习时开发的, 后来成为几乎所有人的课堂作业. [http://www.ideawu.net/person/tftpx/](http://www.ideawu.net/person/tftpx/)
 
-用C语言开发的在Linux平台上的TFTP([RFC1380](http://www.ietf.org/rfc/rfc2348.txt))服务器端和客户端. 支持目录列表, 可变块大小([RFC2348](http://www.ietf.org/rfc/rfc2348.txt)). 传输模式只支持二进制模式.
+用C语言开发的在Linux平台上的TFTP([RFC1350](http://www.ietf.org/rfc/rfc1350.txt))服务器端和客户端. 支持目录列表, 可变块大小([RFC2348](http://www.ietf.org/rfc/rfc2348.txt)). 传输模式只支持二进制模式.
 
 停止等待机制作为数据传输的基本机制, 是网络编程必须要掌握的技能. TFTP 协议使用基于UDP的停止等待机制来实现文件的可靠传输.
 
