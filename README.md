@@ -4,7 +4,7 @@
 
 用C语言开发的在Linux平台上的TFTP([RFC1350](http://www.ietf.org/rfc/rfc1350.txt))服务器端和客户端. 支持目录列表, 可变块大小([RFC2348](http://www.ietf.org/rfc/rfc2348.txt)). 传输模式只支持二进制模式.
 
-停止等待机制作为数据传输的基本机制, 是网络编程必须要掌握的技能. TFTP 协议使用基于UDP的停止等待机制来实现文件的可靠传输.
+停止等待(Stop and Wait)和自动重传(ARQ)机制作为数据传输的基本机制, 是网络编程必须要掌握的技能. TFTP 协议使用基于UDP的停止等待和超时重传机制来实现文件的可靠传输.
 
 在查看 tftpx 的源码之前, 你最好先阅读 W.Richard.Stevens 的 TCP/IP Illustrated Volume 1: The Protocols(TCP/IP详解 卷1:协议).
 
